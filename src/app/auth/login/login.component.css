@@ -1,0 +1,16 @@
+.login-form {
+  width: 300px;
+}
+
+.login-form-forgot {
+  float: right;
+}
+
+.login-form-button {
+  width: 100%;
+}
+
+.login-container {
+  padding-top: 10%;
+  min-height: 100%;
+}

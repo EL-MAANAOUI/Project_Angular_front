@@ -1,0 +1,247 @@
+<header>
+        <div class="header-part header-reduce sticky">
+            <div class="header-top">
+                <div class="container">
+                    <div class="header-top-inner">
+                        <div class="header-top-left">
+                            <a href="#" class="top-cell"><img src="assets/images/fon.png" alt=""> <span>0529456789</span></a>
+                            <a href="#" class="top-email"><span>khouloud@restaurant.com</span></a>
+                        </div>
+                        <div class="header-top-right">
+                            <div class="social-top">
+                                <ul>
+                                    <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-google" aria-hidden="true"></i></a></li>
+                                </ul>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="header-bottom">
+                <div class="container">
+                    <div class="header-info">
+                        <div class="header-info-inner">
+
+                            <!-- recherche
+                            <div class="search-part">
+                                <a href="#"></a>
+                                <div class="search-box">
+                                    <input type="text" name="txt" placeholder="Search">
+                                    <input type="submit" name="submit" value=" ">
+                                </div>
+                            </div> -->
+
+                            <!-- //panier -->
+                            <div class="shop-cart header-collect">
+                                <a  style="color: #fff" ><img src="assets/images/icon-basket.png" alt="">{{commande.length}} Articles - {{getPrixtotal()}} DH</a>
+                                <div class="cart-wrap">
+                                    <div class="cart-blog">
+                                        <div *ngFor="let command of commande" class="cart-item">
+                                            <div class="cart-item-left">
+                                                <img src="assets/images/img60.png" alt="">
+                                            </div>
+                                            <div class="cart-item-right">
+                                                <h6>{{command.name}} &nbsp; &nbsp; * {{command.qte}}</h6>
+                                                <span> {{command.price_unit * command.qte}} DH</span>
+                                            </div>
+                                            <span class="delete-icon"></span>
+                                        </div>
+                                        <div class="subtotal">
+                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                                <h6>Total :</h6>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                                <span> {{getPrixtotal()}} &nbsp; DH</span>
+                                            </div>
+                                        </div>
+                                        <div class="cart-btn">
+                                            <!-- <div class="col-12 row" >
+                                                <div class="col-md-6 col-sm-12" > -->
+                                                    <!-- <a routerLink="/checkout"class="btn-black view pull-right">VOIR TOUT</a> -->
+                                                    <button nzBlock nz-button routerLink="/checkout" [nzSize]="'large'" nzType="default">VOIR TOUT</button>
+                                                <!-- </div> --> 
+                                                <!-- <div class="col-md-6 col-sm-12" >
+                                                    <a href="#" class="btn-main checkout pull-left">CHECK-OUT</a>
+                                                    <button nz-button routerLink="/checkout" [nzSize]="'large'" nzType="default">CHECK-OUT</button>
+
+                                                </div> -->
+                                            <!-- </div> -->
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- login -->
+                            <div *ngIf="!logged" class="book-table header-collect book-md">
+                                <a href="#" (click)="$event.preventDefault(); showModal();" ><img src="assets/images/user.png" alt="">Connexion</a>
+                                <nz-modal
+                                    [(nzVisible)]="isLoginVisible"
+                                    [nzTitle]="'Authentification'"
+                                    [nzContent]="modalContent"
+                                    [nzFooter]="modalFooter"
+                                    (nzOnCancel)="handleCancel()">
+
+                                    <ng-template #modalContent>
+                                        <form nz-form [formGroup]="loginForm" class="login-form" (ngSubmit)="submitForm()">
+                                            <nz-form-item *ngIf="loginFail">
+                                                <nz-form-control>
+                                                <nz-alert nzCloseable nzType="error" nzMessage="Please check your email or password" nzShowIcon></nz-alert>
+                                                </nz-form-control>
+                                            </nz-form-item>
+                                        
+                                            <nz-form-item>
+                                                <nz-form-control>
+                                                <nz-input-group>
+                                                    <input type="text" nz-input formControlName="email" placeholder="Email" />
+                                                </nz-input-group>
+                                                <nz-form-explain *ngIf="loginForm.get('email')?.dirty && loginForm.get('email')?.errors"
+                                                    >Email invalid!</nz-form-explain>
+                                                </nz-form-control>
+                                            </nz-form-item><br>
+                                            <nz-form-item>
+                                                <nz-form-control>
+                                                <nz-input-group>
+                                                    <input type="password" nz-input formControlName="password" placeholder="Password" />
+                                                </nz-input-group>
+                                                <nz-form-explain *ngIf="loginForm.get('password')?.dirty && loginForm.get('password')?.errors"
+                                                    >Mot de passe invalid!</nz-form-explain>
+                                                </nz-form-control>
+                                            </nz-form-item>
+                                            <nz-form-item>
+                                                <nz-form-control>
+                                                <!-- <label >
+                                                    <span>Remember me</span>
+                                                </label>
+                                                <a class="login-form-forgot" class="login-form-forgot">Forgot password</a> -->
+                                                </nz-form-control>
+                                            </nz-form-item>
+                                        </form>
+                                    </ng-template>
+                                
+                                    <ng-template #modalFooter>
+                                        <button [nzLoading]="loading" (click)="submitForm()" [disabled]="loginForm.invalid" nz-button class="login-form-button" [nzType]="'primary'">Connexion <i nz-icon type="login"></i></button>
+                                        <a class="float-left" href="#" (click)="$event.preventDefault(); showRegisterModal();" >Inscription</a>
+                                    </ng-template>
+
+                                </nz-modal>
+                            </div>
+                            <div *ngIf="logged" class="book-table header-collect book-md">
+                                <img src="assets/images/user.png" alt="">
+                                <nz-dropdown nzPlacement="bottomRight">
+                                    <a style="color: #fff" nz-dropdown> {{ userName }}  </a>
+                                    <ul nz-menu nzSelectable>
+                                        
+                                        <li nz-menu-item>
+                                            <a routerLink="/myshops" > Mes Commandes</a>  
+                                        </li> 
+
+                                        <li nz-menu-item>
+                                            <a (click)="logout()" > Deconnexion</a>
+                                        </li>
+                                    
+                                    </ul>
+                                </nz-dropdown>
+
+                              
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-icon">
+                        <a href="#" class="hambarger">
+                            <span class="bar-1"></span>
+                            <span class="bar-2"></span>
+                            <span class="bar-3"></span>
+                        </a>
+                    </div>
+                    <div class="book-table header-collect book-sm">
+                        <a href="#" data-toggle="modal" data-target="#booktable"><img src="assets/images/icon-table.png" alt="">Book a Table</a>
+                    </div>
+                    <div class="menu-main">
+                        <ul>
+                            <li>
+                                <a href="#">Home</a>
+                            </li>
+                            <li>
+                                <a routerLink="/index">Menu</a>
+                            </li>
+
+                            <li>
+                                <a href="#">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="logo">
+                        <a href="#"><img style="box-shadow: 1px 1px 10px 1px #000;
+                            border-radius: 50%;" src="assets/images/newlogo5.png" alt=""></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <nz-modal
+            [(nzVisible)]="isRegisterVisible"
+            [nzTitle]="'Authentification'"
+            [nzContent]="rgisterModalContent"
+            [nzFooter]="registerModalFooter">
+
+            <ng-template #rgisterModalContent>
+                <form nz-form [formGroup]="registerForm" class="login-form">
+                    <nz-form-item *ngIf="registerFail">
+                        <nz-form-control>
+                          <nz-alert nzCloseable nzType="error" [nzMessage]="failMessage" nzShowIcon></nz-alert>
+                        </nz-form-control>
+                      </nz-form-item>
+                  <nz-form-item>
+                      <nz-form-control>
+                        <nz-input-group >
+                          <input type="text" nz-input formControlName="name" placeholder="Complete Name" />
+                        </nz-input-group>
+                        <nz-form-explain *ngIf=" registerForm.controls['name'].invalid && ( registerForm.controls['name'].dirty ||  registerForm.controls['name'].touched)" style="color:red"
+                          >required Input!</nz-form-explain>
+                      </nz-form-control>
+                    </nz-form-item>
+                  <nz-form-item>
+                    <nz-form-control>
+                      <nz-input-group >
+                        <input type="text" nz-input formControlName="remail" placeholder="Email" />
+                      </nz-input-group>
+                      <nz-form-explain *ngIf=" registerForm.controls['remail'].invalid && ( registerForm.controls['remail'].dirty ||  registerForm.controls['remail'].touched)" style="color:red"
+                        >Please check your email!</nz-form-explain
+                      >
+                    </nz-form-control>
+                  </nz-form-item>
+                  <nz-form-item>
+                    <nz-form-control>
+                      <nz-input-group >
+                        <input type="password" nz-input formControlName="rpassword" placeholder="Password" />
+                      </nz-input-group>
+                      <nz-form-explain *ngIf=" registerForm.controls['rpassword'].invalid && ( registerForm.controls['rpassword'].dirty ||  registerForm.controls['rpassword'].touched)" style="color:red"
+                        >Please input your Password!</nz-form-explain>
+                    </nz-form-control>
+                  </nz-form-item>
+                  <nz-form-item>
+                    <nz-form-control>
+                      <nz-input-group >
+                        <input type="password" nz-input formControlName="password_confirmation" placeholder="Repeat your Password" />
+                      </nz-input-group>
+                      <nz-form-explain *ngIf=" registerForm.controls['password_confirmation'].invalid && ( registerForm.controls['password_confirmation'].dirty ||  registerForm.controls['password_confirmation'].touched)" style="color:red"
+                        >Please input the same Password!</nz-form-explain>
+                    </nz-form-control>
+                  </nz-form-item>
+                </form>
+            </ng-template>
+        
+            <ng-template #registerModalFooter>
+                <button [nzLoading]="loading" (click)="submitRegisterForm()" [disabled]="registerForm.invalid" nz-button class="login-form-button" [nzType]="'primary'">Inscrire</button>
+                <a class="float-left" href="#" (click)="$event.preventDefault(); showModal();" >Connexion</a>
+            </ng-template>
+
+        </nz-modal>
+    </header>

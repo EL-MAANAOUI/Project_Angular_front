@@ -1,0 +1,24 @@
+<nz-content class="nz-content">
+    <nz-breadcrumb class="nz-breadcrumb" >
+        <nz-breadcrumb-item>Home</nz-breadcrumb-item>
+        <nz-breadcrumb-item>Shops</nz-breadcrumb-item>
+    </nz-breadcrumb>
+    <div class="page-content">
+      <div class="row mb-3">
+          <div class="col-6">
+              <h2>Shops List</h2>
+            </div>
+            <div class="col-6 text-right">
+                <ul nz-menu [nzMode]="'horizontal'">
+                    <li (click)="switchList('nearby')" class="ant-menu-item-selected" nz-menu-item><i nz-icon type="environment"></i> Nearby </li>
+                    <li (click)="switchList('preferred')" nz-menu-item><i nz-icon type="heart"></i> Preferred </li>
+                  </ul>
+            </div>
+      </div>
+      <div class="row" >
+        <div *ngFor="let shop of Filtredshops" class="col-lg-3 col-md-3 col-sm-4 col-xs-6 mb-1 mt-1">
+            <app-shop [shop]="shop" ></app-shop>
+        </div>
+      </div>
+    </div>
+</nz-content>

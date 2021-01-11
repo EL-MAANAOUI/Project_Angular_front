@@ -1,0 +1,96 @@
+<main>
+    <div class="main-part">
+        <!-- Start Breadcrumb Part -->
+        <section class="breadcrumb-part" data-stellar-offset-parent="true" data-stellar-background-ratio="0.5" style="background-image: url(&quot;assets/images/breadbg1.jpg&quot;); background-position: 0% 208.4px;">
+            <div class="container">
+                <div class="breadcrumb-inner">
+                    <h2>MES COMMANDES</h2>
+                    <a  routerLink="/index">Home</a>
+                    <span>Mes commandes</span>
+                </div>
+            </div>
+        </section>
+        <!-- End Breadcrumb Part -->
+        <section class="home-icon shop-cart bg-skeen">
+            <div class="icon-default icon-skeen">
+                <img src="assets/images/scroll-arrow.png" alt="">
+            </div>
+            <div class="container">
+                
+                <div class="shop-cart-list wow fadeInDown animated" data-wow-duration="1000ms" data-wow-delay="300ms" style="visibility: visible; animation-duration: 1000ms; animation-delay: 300ms; animation-name: fadeInDown;">
+                    <table class="shop-cart-table">
+                        <thead>
+                            <tr>
+                                <th>COMMANDE</th>
+                                <th>TABLE</th>
+                                <th>ETAT</th>
+                                <th>PRET à</th>
+                                <th>TOTAL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr  *ngFor="let mycommande of mycommandes">
+                                <th>COMMANDE</th>
+                                <td>
+                                    <div class="product-cart">
+                                        <img src="assets/images/img70.png" alt="">
+                                    </div>
+                                    <div class="product-cart-title">
+                                        <span>{{mycommande.created_at | date}} &nbsp; &nbsp; N°-{{mycommande.id}}</span>
+                                    </div>
+                                </td>
+                                <th>TABLE</th>
+                                <td>
+                                    <strong>{{mycommande.table_id}}</strong>
+                                    <!-- <del>$5400.00</del> -->
+                                </td>
+                                <th>ETAT</th>
+                                <td>
+                                    <div class="price-textbox">
+                                        <span [ngClass]="{
+                                            'badge-primary':mycommande.state_id === 1,
+                                            'badge-danger':mycommande.state_id === 2,
+                                            'badge-warning':mycommande.state_id === 3,
+                                            'badge-success':mycommande.state_id === 4,
+                                            'badge-secondary':mycommande.state_id === 5
+                                          }" class="badge ">{{getEtat(mycommande.state_id)}}</span>
+                                     
+                                    </div>
+                                </td>
+                                <th>PRET à</th>
+                                    <td *ngIf="mycommande.state_id == 1 || mycommande.state_id == 3">
+                                        {{mycommande.dure }} min 
+                                    </td>
+                                    <td *ngIf="mycommande.state_id == 2 || mycommande.state_id == 5 || mycommande.state_id == 4">
+                                           --
+                                    </td>
+                                <th>TOTAL</th>
+                                <td>
+                                    {{mycommande.price_ttc }} &nbsp;&nbsp; DH 
+                                </td>
+                            </tr>
+                           
+                        </tbody>
+                    </table>
+                    <!-- <div class="grand-total">
+                        <h5 style="font-size: xx-large" >TOTAL <span>{{calculerPrixttc()}}&nbsp; DH</span></h5>
+                    </div> -->
+                    <!-- <div class="product-cart-detail">
+                        <span style="float: left; font-size: xx-large;" > Table :</span> <div class="cupon-part">
+                            <div class="jq-selectbox jqselect select-dropbox" style="display: inline-block; position: relative; z-index: 100;     min-width: 100px;">
+                                 <select  [(ngModel)]="tableSelected"  class="select-dropbox" >                
+                                    <option *ngFor="let table of tables" [value]="table.id" >{{table.id}}</option>
+                                </select>
+                                <nz-select style="width: 120px; margin-top: 10px; margin-left: 44px;"  class="select-dropbox" [(ngModel)]="tableSelected" nzAllowClear nzPlaceHolder="selectionner une table ">
+                                    <nz-option *ngFor="let table of tables" nzValue="{{table.id}}" nzLabel="{{table.id}}"></nz-option>
+                                  </nz-select>
+                            </div>
+                        </div>
+                        <a (click)="checkout()" class="btn-medium btn-skin pull-right"></a>
+                   
+                </div> -->
+            </div>
+            </div>
+        </section>
+    </div>
+</main>
